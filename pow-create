@@ -1,0 +1,99 @@
+#!/usr/bin/python3
+
+import sys
+import hashlib
+import itertools
+
+"""
+This class will be used in order to create a proof-of-work string for a given message (in a file).
+
+Input: nbits file
+
+nbits = number of leading zero bits requested in the hash
+file = contains the message to hash and put leading zeros in
+
+Author: Chris Zachariah
+"""
+
+# number of bytes to read from file at a time
+BUF_SIZE = 65536
+
+def main():
+    # check number of arguments
+    if len(sys.argv) != 3:
+        print("Usage: ./pow-create nbits file")
+        exit()
+
+    # make sure its a positive number
+    try:
+        num_bits = int(sys.argv[1])
+        if num_bits < 0:
+            print("Please make sure that nbits is a positive number.")
+            exit()
+    except ValueError:
+        print("Please use an integer number for nbits.")
+        exit()
+
+    # read from file and hash the contents
+    sha256 = hashlib.sha256()
+    try:
+        with open(sys.argv[2], "rb") as f:
+            while True:
+                bytesBuf = f.read(BUF_SIZE)
+                if not bytesBuf:
+                    break
+                sha256.update(bytesBuf)
+        print("File:", sys.argv[2])
+        print("Initial-hash: {0}".format(sha256.hexdigest()))
+    except IOError:
+        print("Error reading from", sys.argv[2])
+        exit()
+
+    test = "4*XH1"
+    hash = sha256.hexdigest()
+    whole = test + hash
+    print(whole)
+
+    result = hashlib.sha256(whole.encode())
+    print(result.hexdigest())
+
+    end_length = len(result.hexdigest()) * 4
+
+    hex_as_int = int(result.hexdigest(), 16)
+    hex_as_binary = bin(hex_as_int)
+    padded_binary = hex_as_binary[2:].zfill(end_length)
+
+    print(padded_binary)
+    print(padded_binary.find('1'))
+
+
+if __name__ == "__main__":
+    main()
+
+'''
+
+# compute proof of work (keep track of time, iterations and length of leading zero bits)
+    listOfAllCharacters = [
+            '!', '#', '$', '%', '&', '(', ')',
+            '*', '+', '-', '.', '/', '0', '1',
+            '2', '3', '4', '5', '6', '7', '8',
+            '9', ':', ';', '<', '=', '>', '?',
+            '@', 'A', 'B', 'C', 'D', 'E', 'F',
+            'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y', 'Z', '[',
+            '\\', ']', '^', '_', 'a', 'b', 'c',
+            'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q',
+            'r', 's', 't', 'u', 'v', 'w', 'x',
+            'y', 'z', '{', '|', '}', '`'
+    ]
+    for r in range(len(listOfAllCharacters) + 1):
+        combinations_object = itertools.combinations(listOfAllCharacters, r)
+        for combo in combinations_object:
+            print(combo)
+            if len(combo) > 1:
+                if combo[0] == '$':
+                    exit()
+        
+'''
