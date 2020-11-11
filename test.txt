@@ -1,6 +1,7 @@
-The time has come, the Walrus said,
-To talk of many things:
-Of shoes — and ships — and sealing-wax —
-Of cabbages — and kings —
-And why the sea is boiling hot —
-And whether pigs have wings.
+File: walrus.txt
+Initial-hash: 66efa274991ef4ab1ed1b89c06c2c8270bb73ffdc28a9002a334ec3023039945
+Proof-of-work: 7&c
+Hash: 000153c59d4b9cf6bd62686c5b611cfb5128122fd659e3a531dd05ce7a49fe1c
+Leading-bits: 15
+Iterations: 110716
+Compute-time: 0.3753652572631836

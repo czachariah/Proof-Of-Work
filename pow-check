@@ -1,0 +1,81 @@
+#!/usr/bin/python3
+
+import sys
+import hashlib
+
+"""
+This class will be used in order to check the proof-of-work.
+
+Input: headerFile originalFile
+
+headerFile = contains the header to be checked
+originalFile = contains the original message
+
+Author: Chris Zachariah
+"""
+
+# number of bytes to read from file at a time
+BUF_SIZE = 65536
+
+
+def main():
+    # check number of arguments
+    if len(sys.argv) != 3:
+        print("Usage: ./pow-check headerFile originalFile")
+        exit()
+
+    # read from the headerFile and collect all the info (7 Strings)
+    headerContent = []
+    try:
+        with open(sys.argv[1], "r") as f:
+            for line in f:
+                a = line.split(": ", 1)
+                headerContent.append(a[1].split("\n")[0])
+        f.close()
+    except IOError:
+        print("Error reading from", sys.argv[1])
+        exit()
+
+    # read from the originalFile and hash the message
+    sha256 = hashlib.sha256()
+    try:
+        with open(sys.argv[2], "rb") as f:
+            while True:
+                bytesBuf = f.read(BUF_SIZE)
+                if not bytesBuf:
+                    break
+                sha256.update(bytesBuf)
+        f.close()
+    except IOError:
+        print("Error reading from", sys.argv[2])
+        exit()
+    messageHash = sha256.hexdigest()
+
+    # check if the messageHash and initial hash from the header match
+    if messageHash != headerContent[1]:
+        print("fail: Header's Initial-hash does not match")
+        exit()
+
+    # check if the hash of the proof-of-work concatenated with the messageHash is the same as the Hash in the header
+    proof = headerContent[2]
+    conCat = proof + messageHash
+    result = hashlib.sha256(conCat.encode())
+    if result.hexdigest() != headerContent[3]:
+        print("fail: Header's Hash does not match")
+        exit()
+
+    # check if the number of leading zero bits from the header match
+    end_length = len(result.hexdigest()) * 4
+    hex_as_int = int(result.hexdigest(), 16)
+    hex_as_binary = bin(hex_as_int)
+    padded_binary = hex_as_binary[2:].zfill(end_length)
+    if str(padded_binary.find('1')) != headerContent[4]:
+        print("fail: Header's Leading-bits does not match")
+        exit()
+
+    # if no errors have occurred so far, then the header is good and check out
+    print("pass")
+
+
+if __name__ == "__main__":
+    main()
