@@ -1,7 +1,7 @@
-File: ../hw13-samples/testfiles/leaves.jpg
-Initial-hash: fa077ddd746740d4b979dac473c3ecf38f61e0e3ccd93b9bb7ff4b6859b68dc5
-Proof-of-work: #!`i
-Hash: 00000d010b392436b05b34555c2b362ee79be2e4bb480095b7d9ae9daf301dff
-Leading-bits: 20
-Iterations: 127375
-Compute-time: 0.4481778144836426
+File: walrus.txt
+Initial-hash: 66efa274991ef4ab1ed1b89c06c2c8270bb73ffdc28a9002a334ec3023039945
+Proof-of-work: 7&c
+Hash: 000153c59d4b9cf6bd62686c5b611cfb5128122fd659e3a531dd05ce7a49fe1c
+Leading-bits: 15
+Iterations: 108459
+Compute-time: 0.3998100757598877

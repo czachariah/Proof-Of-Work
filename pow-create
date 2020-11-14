@@ -4,6 +4,7 @@ import sys
 import hashlib
 import itertools
 import time
+import string
 
 """
 This class will be used in order to create a proof-of-work string for a given message (in a file).
@@ -54,22 +55,10 @@ def main():
         exit()
     messageHash = sha256.hexdigest()
 
-    # list of all possible characters to use for the proof
-    listOfAllCharacters = [
-        '!', '#', '$', '%', '&', '(', ')',
-        '*', '+', '-', '.', '/', '{', '|',
-        '}', '`', '<', '=', '>', '?', '@',
-        ':', ';', '\\', ']', '^', '_', '[',
-        '0', '1', '2', '3', '4', '5', '6',
-        '7', '8', '9', 'A', 'B', 'C', 'D',
-        'E', 'F', 'G', 'H', 'I', 'J', 'K',
-        'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-        'S', 'T', 'U', 'V', 'W', 'X', 'Y',
-        'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-        'g', 'h', 'i', 'j', 'k', 'l', 'm',
-        'n', 'o', 'p', 'q', 'r', 's', 't',
-        'u', 'v', 'w', 'x', 'y', 'z'
-    ]
+    listOfAllCharacters = string.printable
+    listOfAllCharacters = listOfAllCharacters.strip(' \t\n\r\x0b\x0c')
+    listOfAllCharacters = listOfAllCharacters.replace('\'', '')
+    listOfAllCharacters = listOfAllCharacters.replace('\"', '')
 
     # get all combinations and permutations to test as proof of work
     startIter = num_bits // 5
@@ -108,3 +97,33 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+'''
+
+
+
+listOfAllCharacters = string.printable
+    listOfAllCharacters = listOfAllCharacters.strip(' \t\n\r\x0b\x0c')
+    listOfAllCharacters = listOfAllCharacters.replace('\'', '')
+    listOfAllCharacters = listOfAllCharacters.replace('\"', '')
+    
+    
+    
+    # list of all possible characters to use for the proof
+    listOfAllCharacters = [
+        '!', '#', '$', '%', '&', '(', ')',
+        '*', '+', '-', '.', '/', '{', '|',
+        '}', '`', '<', '=', '>', '?', '@',
+        ':', ';', '\\', ']', '^', '_', '[',
+        '0', '1', '2', '3', '4', '5', '6',
+        '7', '8', '9', 'A', 'B', 'C', 'D',
+        'E', 'F', 'G', 'H', 'I', 'J', 'K',
+        'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+        'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+        'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't',
+        'u', 'v', 'w', 'x', 'y', 'z'
+    ]
+'''
