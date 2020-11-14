@@ -57,24 +57,30 @@ def main():
     # list of all possible characters to use for the proof
     listOfAllCharacters = [
         '!', '#', '$', '%', '&', '(', ')',
-        '*', '+', '-', '.', '/', '0', '1',
-        '2', '3', '4', '5', '6', '7', '8',
-        '9', ':', ';', '<', '=', '>', '?',
-        '@', 'A', 'B', 'C', 'D', 'E', 'F',
-        'G', 'H', 'I', 'J', 'K', 'L', 'M',
-        'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-        'U', 'V', 'W', 'X', 'Y', 'Z', '[',
-        '\\', ']', '^', '_', 'a', 'b', 'c',
-        'd', 'e', 'f', 'g', 'h', 'i', 'j',
-        'k', 'l', 'm', 'n', 'o', 'p', 'q',
-        'r', 's', 't', 'u', 'v', 'w', 'x',
-        'y', 'z', '{', '|', '}', '`'
+        '*', '+', '-', '.', '/', '{', '|',
+        '}', '`', '<', '=', '>', '?', '@',
+        ':', ';', '\\', ']', '^', '_', '[',
+        '0', '1', '2', '3', '4', '5', '6',
+        '7', '8', '9', 'A', 'B', 'C', 'D',
+        'E', 'F', 'G', 'H', 'I', 'J', 'K',
+        'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y',
+        'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+        'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't',
+        'u', 'v', 'w', 'x', 'y', 'z'
     ]
 
     # get all combinations and permutations to test as proof of work
-    start_time = time.time()
+    startIter = num_bits // 5
     iteration = 0
-    for r in range(len(listOfAllCharacters) + 1):
+    r = 0
+    if startIter < 1:
+        r = 1
+    else:
+        r = startIter
+    start_time = time.time()
+    while r <= (len(listOfAllCharacters) + 1):
         combinations_object = itertools.combinations_with_replacement(listOfAllCharacters, r)       # get combos
         for combo in combinations_object:
             permutations_object = itertools.permutations(combo)                                     # get permutations
@@ -97,6 +103,7 @@ def main():
                     print("Iterations: " + str(iteration))
                     print("Compute-time: " + str(time.time() - start_time))
                     exit()
+        r = r + 1
 
 
 if __name__ == "__main__":
