@@ -64,7 +64,7 @@ def main():
     startIter = num_bits // 5
     iteration = 0
     r = 1
-    if startIter < 1:
+    if startIter <= 1:
         r = 1
     else:
         r = startIter - 1
