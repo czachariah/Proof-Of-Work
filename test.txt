@@ -1,7 +1,16 @@
 File: walrus.txt
 Initial-hash: 66efa274991ef4ab1ed1b89c06c2c8270bb73ffdc28a9002a334ec3023039945
-Proof-of-work: 7&c
-Hash: 000153c59d4b9cf6bd62686c5b611cfb5128122fd659e3a531dd05ce7a49fe1c
-Leading-bits: 15
-Iterations: 108459
-Compute-time: 0.3998100757598877
+
+
+
+
+
+
+
+
+
+                             Proof-of-work: 0=6P
+Hash: 000000ee345e6c9fa74476896658a616d984f49b0bfc0c4ca80b71de74c9c7f3
+Leading-bits: 23
+Iterations: 1439484
+Compute-time: 4.518030881881714

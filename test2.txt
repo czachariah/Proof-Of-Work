@@ -1,0 +1,7 @@
+File: abc
+Initial-hash: 1010a7e761610980ac591359c871f724de150f23440ebb5959ac4c0724c91d91
+Proof-of-work: 21Sx
+Hash: 0000084b346da5c088419fdc91b3ddae0b58e723d91a25b113de24c9322b1588
+Leading-bits: 20
+Iterations: 2349530
+Compute-time: 7.669002056121826
